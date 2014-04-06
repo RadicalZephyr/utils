@@ -26,7 +26,9 @@ test_for() {
 test_for pandoc
 test_for latexmk
 
-DIR=`dirname $1`
+FILE=$1
+
+DIR=`dirname $FILE`
 
 if [ -f $DIR/prefix.tex ]
 then
