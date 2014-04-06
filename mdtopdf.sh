@@ -49,3 +49,9 @@ EOF
 
 fi
 
+echo "Writing prefix"
+echo "$PREFIX"
+
+echo
+echo "Writing suffix"
+echo "$SUFFIX"
