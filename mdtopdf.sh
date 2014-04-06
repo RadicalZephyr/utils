@@ -64,3 +64,12 @@ pandoc -t latex $FILE >> $TEMPDIR/$TEMPTEX
 echo
 echo "Appending suffix"
 echo "$SUFFIX" >> $TEMPDIR/$TEMPTEX
+
+latexmk -pdf $TEMPDIR/$TEMPTEX
+
+TEMPPDF=${BASENAME%md}pdf
+
+if [ -f $TEMPDIR/$TEMPPDF ]
+then
+    mv $TEMPDIR/$TEMPPDF $DIR/$TEMPPDF
+fi
