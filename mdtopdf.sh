@@ -13,9 +13,15 @@ while true; do
   esac
 done
 
-if hash pandoc 2>/dev/null
-then
-    :
-else
-    echo $NAME": No pandoc found"
-fi
+test_for() {
+    if hash $1 2>/dev/null
+    then
+        :
+    else
+        echo $NAME": No $1 found"
+        exit 1
+    fi
+}
+
+test_for pandoc
+test_for latexmk
