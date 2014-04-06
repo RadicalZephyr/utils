@@ -27,6 +27,11 @@ test_for pandoc
 test_for latexmk
 
 FILE=$1
+if [ $# -le 1 ]
+then
+    echo $NAME": Not enough arguments!"
+    exit 1
+fi
 
 DIR=`dirname $FILE`
 
