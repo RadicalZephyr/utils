@@ -25,3 +25,27 @@ test_for() {
 
 test_for pandoc
 test_for latexmk
+
+DIR=`dirname $1`
+
+if [ -f $DIR/prefix.tex ]
+then
+    PREFIX=`cat $DIR/prefix.tex`
+else
+    read -r -d '' PREFIX <<'EOF'
+\documentclass[paper=a4, fontsize=11pt]{scrartcl}
+\begin{document}
+EOF
+
+fi
+
+if [ -f $DIR/suffix.tex ]
+then
+    SUFFIX=`cat $DIR/suffix.tex`
+else
+    read -r -d '' SUFFIX <<'EOF'
+\end{document}
+EOF
+
+fi
+
