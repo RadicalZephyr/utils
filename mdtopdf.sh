@@ -65,7 +65,9 @@ echo
 echo "Appending suffix"
 echo "$SUFFIX" >> $TEMPDIR/$TEMPTEX
 
-latexmk -pdf $TEMPDIR/$TEMPTEX
+pushd $TEMPDIR
+latexmk -pdf $TEMPTEX
+popd
 
 TEMPPDF=${BASENAME%md}pdf
 
