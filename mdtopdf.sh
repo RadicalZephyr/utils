@@ -13,4 +13,9 @@ while true; do
   esac
 done
 
-echo $1
+if hash pandoc 2>/dev/null
+then
+    :
+else
+    echo $NAME": No pandoc found"
+fi
