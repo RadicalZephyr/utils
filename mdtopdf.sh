@@ -51,9 +51,16 @@ EOF
 
 fi
 
-echo "Writing prefix"
-echo "$PREFIX"
+BASENAME=`basename $FILE`
+TEMPTEX=${BASENAME%md}tex
+TEMPDIR=`mktemp -d`
+
+echo "Prepending prefix"
+echo "$PREFIX" >> $TEMPDIR/$TEMPTEX
+
+echo "Generating content with pandoc"
+pandoc -t latex $FILE >> $TEMPDIR/$TEMPTEX
 
 echo
-echo "Writing suffix"
-echo "$SUFFIX"
+echo "Appending suffix"
+echo "$SUFFIX" >> $TEMPDIR/$TEMPTEX
