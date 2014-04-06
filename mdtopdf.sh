@@ -26,12 +26,14 @@ test_for() {
 test_for pandoc
 test_for latexmk
 
-FILE=$1
 if [ $# -le 1 ]
 then
     echo $NAME": Not enough arguments!"
     exit 1
 fi
+
+for FILE in $@
+do
 
 DIR=`dirname $FILE`
 
@@ -82,3 +84,5 @@ then
 fi
 
 rm -rf $TEMPDIR
+
+done
