@@ -73,3 +73,5 @@ if [ -f $TEMPDIR/$TEMPPDF ]
 then
     mv $TEMPDIR/$TEMPPDF $DIR/$TEMPPDF
 fi
+
+rm -rf $TEMPDIR
