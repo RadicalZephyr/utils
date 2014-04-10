@@ -26,7 +26,7 @@ test_for() {
 test_for pandoc
 test_for latexmk
 
-if [ $# -le 1 ]
+if [ $# -lt 1 ]
 then
     echo $NAME": Not enough arguments!"
     exit 1
