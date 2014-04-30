@@ -16,11 +16,15 @@ done
 
 HOST=$1
 REMOTE_DIR=$2
+REMOTE_SUBDIR=$REMOTE_DIR
 SUBDIR=$3
 
 if [ -n "$DNAME" ]
 then
+
+    REMOTE_SUBDIR=$DNAME
     DNAME="--transform s/$SUBDIR/$DNAME/"
+
 fi
 
 if [ -d "$SUBDIR" ]
@@ -29,6 +33,6 @@ then
     git archive --format tar.gz master $SUBDIR | ssh $HOST "tar -xzf - -C $REMOTE_DIR $DNAME"
     pushd $SUBDIR
     android update project -p ./
-    ant release && scp bin/Main-release.apk $HOST:"~"/$REMOTE_DIR
+    ant release && scp bin/Main-release.apk $HOST:"~"/$REMOTE_DIR/$REMOTE_SUBDIR
     popd
 fi
