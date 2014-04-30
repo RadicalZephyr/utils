@@ -28,6 +28,7 @@ then
 
     git archive --format tar.gz master $SUBDIR | ssh $HOST "tar -xzf - -C $REMOTE_DIR $DNAME"
     pushd $SUBDIR
+    android update project -p ./
     ant release && scp bin/Main-release.apk $HOST:"~"/$REMOTE_DIR
     popd
 fi
