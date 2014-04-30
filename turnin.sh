@@ -1,27 +1,33 @@
 #!/bin/bash
 
 NAME=$(basename $0)
-TEMP=$(getopt -o '' -n $NAME -- "$@")
+TEMP=$(getopt -o 'd:' --long 'destination-name:' -n $NAME -- "$@")
 
 if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
 
 eval set -- "$TEMP"
 
 while true; do
-  case "$1" in
-    -- ) shift; break ;;
+    case "$1" in
+        -d | --destination-name ) DNAME="$2"; shift 2;;
+        -- ) shift; break ;;
   esac
 done
 
-SUBDIR=$1
-HOST=$2
-REMOTE_DIR=$3
+HOST=$1
+REMOTE_DIR=$2
+SUBDIR=$3
 
-if [ -d "$0" ]
+if [ -n "$DNAME" ]
+then
+    DNAME="--transform s/$SUBDIR/$DNAME/"
+fi
+
+if [ -d "$SUBDIR" ]
 then
 
-    git archive --format tar.gz master $SUBDIR | ssh $HOST "tar -C $REMOTE_DIR -xzf - "
+    git archive --format tar.gz master $SUBDIR | ssh $HOST "tar -xzf - -C $REMOTE_DIR $DNAME"
     pushd $SUBDIR
     ant release && scp bin/Main-release.apk $HOST:"~"/$REMOTE_DIR
-
+    popd
 fi
